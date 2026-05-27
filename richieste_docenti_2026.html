@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modulo Raccolta Richieste Docenti 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A3A5C;
+    --navy-light: #2a5080;
+    --gold: #C9973A;
+    --gold-light: #E8C06A;
+    --cream: #FAF8F4;
+    --white: #FFFFFF;
+    --border: #D4C5A9;
+    --text: #2C2C2C;
+    --text-light: #666;
+    --success: #2E7D32;
+    --error: #C62828;
+    --shadow: 0 4px 24px rgba(26,58,92,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: linear-gradient(135deg, #e8eef5 0%, #f5f0e8 100%);
+    min-height: 100vh;
+    padding: 30px 16px 60px;
+    color: var(--text);
+  }
+
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    border-radius: 12px 12px 0 0;
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: rgba(201,151,58,0.12);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .logo-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .logo-emblem {
+    width: 46px; height: 46px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .brand-names {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .brand-separator {
+    color: var(--gold);
+    font-size: 16px;
+    line-height: 1;
+  }
+  .brand-text {
+    font-family: 'Playfair Display', serif;
+    color: rgba(255,255,255,0.55);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    position: relative;
+  }
+  .header-divider {
+    width: 56px; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin: 14px 0 16px;
+  }
+  .header-subtitle {
+    color: rgba(255,255,255,0.80);
+    font-size: 14.5px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--white);
+    border-radius: 0 0 12px 12px;
+    box-shadow: var(--shadow);
+    padding: 38px 40px 40px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 28px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title:first-of-type { margin-top: 0; }
+  .section-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .field-row.single { grid-template-columns: 1fr; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+  @media (max-width: 560px) {
+    .field-row, .field-row.triple { grid-template-columns: 1fr; }
+    .form-card { padding: 26px 20px 30px; }
+    .header { padding: 28px 22px 22px; }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  label .req {
+    color: var(--gold);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    border: 1.5px solid #DDD;
+    border-radius: 7px;
+    padding: 11px 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14.5px;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--navy);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(26,58,92,0.08);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A3A5C' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  /* ── CHECKBOX SAGGIO ── */
+  .saggio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .check-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .check-option input[type="checkbox"] {
+    width: 20px; height: 20px;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check-option span {
+    font-size: 14.5px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ── SUBMIT ── */
+  .submit-area {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-submit {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 48px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(26,58,92,0.25);
+    min-width: 220px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-submit:hover {
+    background: var(--navy-light);
+    box-shadow: 0 6px 20px rgba(26,58,92,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-submit .spinner {
+    display: none;
+    width: 18px; height: 18px;
+    border: 2.5px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  .btn-submit.loading .btn-text { visibility: hidden; }
+  .btn-submit.loading .spinner { display: block; }
+
+  /* ── STATUS MESSAGES ── */
+  .status-box {
+    display: none;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    width: 100%;
+    text-align: center;
+  }
+  .status-box.success {
+    display: block;
+    background: #E8F5E9;
+    color: var(--success);
+    border: 1px solid #A5D6A7;
+  }
+  .status-box.error {
+    display: block;
+    background: #FFEBEE;
+    color: var(--error);
+    border: 1px solid #EF9A9A;
+  }
+
+  /* ── AGENTI GRID ── */
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .agent-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--cream);
+    border: 1.5px solid #DDD;
+    border-radius: 7px;
+    padding: 10px 14px;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .agent-option:hover {
+    border-color: var(--navy);
+    background: #EDF3F9;
+  }
+  .agent-option input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--navy);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .agent-option input[type="checkbox"]:checked + .agent-name {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .agent-option:has(input:checked) {
+    border-color: var(--navy);
+    background: #EDF3F9;
+    box-shadow: 0 0 0 2px rgba(26,58,92,0.10);
+  }
+  .agent-name {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  /* ── FOOTER NOTE ── */
+  .form-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+  .form-footer a { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="logo-line">
+      <div class="logo-emblem">📚</div>
+      <div class="brand-names">
+        <div class="brand-text">Martorana Libri SRL</div>
+        <div class="brand-separator">·</div>
+        <div class="brand-text">MB Multimediabook's SRL</div>
+      </div>
+    </div>
+    <h1>Modulo Raccolta Richieste Docenti 2026</h1>
+    <div class="header-divider"></div>
+    <p class="header-subtitle">
+      Gentile docente, si prega di compilare il seguente modulo ed il suo consulente provvederà ad evadere la richiesta nel più breve tempo possibile.
+    </p>
+  </div>
+
+  <div class="form-card">
+
+    <div class="section-title"><span class="section-dot"></span> Dati Personali</div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Data di compilazione</label>
+        <input type="text" id="data_compilazione" readonly style="background:#EDF3F9; color:var(--navy); font-weight:600; cursor:default; border-color:#C5D8EE;">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Cognome <span class="req">*</span></label>
+        <input type="text" id="cognome" placeholder="Es. Rossi" required>
+      </div>
+      <div class="field">
+        <label>Nome <span class="req">*</span></label>
+        <input type="text" id="nome" placeholder="Es. Maria" required>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="nome@scuola.edu.it" required>
+      </div>
+      <div class="field">
+        <label>Telefono</label>
+        <input type="tel" id="telefono" placeholder="+39 000 0000000">
+      </div>
+    </div>
+
+    <div class="section-title"><span class="section-dot"></span> Istituto Scolastico</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Nome Scuola <span class="req">*</span></label>
+        <input type="text" id="scuola" placeholder="Es. I.C. G. Rodari – G. Nosengo" required>
+      </div>
+      <div class="field">
+        <label>Comune <span class="req">*</span></label>
+        <input type="text" id="comune" placeholder="Es. Gravina di Catania" required>
+      </div>
+    </div>
+
+    <div class="field-row triple">
+      <div class="field">
+        <label>Materia <span class="req">*</span></label>
+        <select id="materia" required>
+          <option value="">— Seleziona —</option>
+          <option>Italiano</option>
+          <option>Storia</option>
+          <option>Geografia</option>
+          <option>Matematica</option>
+          <option>Scienze</option>
+          <option>Inglese</option>
+          <option>Francese</option>
+          <option>Spagnolo</option>
+          <option>Tedesco</option>
+          <option>Arte e Immagine</option>
+          <option>Musica</option>
+          <option>Educazione Fisica</option>
+          <option>Tecnologia</option>
+          <option>Religione</option>
+          <option>Sostegno</option>
+          <option>Altra materia</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Materia (altra)</label>
+        <input type="text" id="materia_altra" placeholder="Se non elencata sopra">
+      </div>
+      <div class="field">
+        <label>Classe / Sezione</label>
+        <input type="text" id="classe" placeholder="Es. 2^A">
+      </div>
+    </div>
+
+    <div class="section-title"><span class="section-dot"></span> Richiesta Libro in Saggio</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Titolo del Libro <span class="req">*</span></label>
+        <input type="text" id="titolo" placeholder="Titolo completo del volume" required>
+      </div>
+      <div class="field">
+        <label>Autore/i</label>
+        <input type="text" id="autore" placeholder="Es. Bianchi, Verdi">
+      </div>
+    </div>
+
+    <div class="field-row triple">
+      <div class="field">
+        <label>Editore</label>
+        <select id="editore">
+          <option value="">— Seleziona —</option>
+          <option>Paravia</option>
+          <option>Bruno Mondadori</option>
+          <option>Pearson</option>
+          <option>De Agostini</option>
+          <option>Garzanti</option>
+          <option>Lattes</option>
+          <option>Loescher</option>
+          <option>Zanichelli</option>
+          <option>SEI</option>
+          <option>Altro editore</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Editore (altro)</label>
+        <input type="text" id="editore_altro" placeholder="Se non elencato">
+      </div>
+      <div class="field">
+        <label>ISBN</label>
+        <input type="text" id="isbn" placeholder="Es. 978-88-...">
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Tipo di richiesta <span class="req">*</span></label>
+        <div class="saggio-group">
+          <label class="check-option">
+            <input type="checkbox" id="uso_personale">
+            <span>📖 Saggio per uso personale (consultazione/valutazione)</span>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="uso_didattico">
+            <span>🏫 Saggio per uso didattico (adozione in classe)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="section-dot"></span> Consulente di Riferimento</div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Seleziona il consulente da contattare <span class="req">*</span></label>
+        <div class="agents-grid">
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="DANIELE BOSCHETTO">
+            <span class="agent-name">Daniele Boschetto</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="FILIPPO MARTORANA">
+            <span class="agent-name">Filippo Martorana</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="EMANUELA LAURICELLA">
+            <span class="agent-name">Emanuela Lauricella</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="FABIO ZAFFIRO">
+            <span class="agent-name">Fabio Zaffiro</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="NINO SPITALERI">
+            <span class="agent-name">Nino Spitaleri</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="ANGELO PASQUALINI">
+            <span class="agent-name">Angelo Pasqualini</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="MARCO CONSOLE">
+            <span class="agent-name">Marco Console</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="ORESTE CONSOLE">
+            <span class="agent-name">Oreste Console</span>
+          </label>
+          <label class="agent-option">
+            <input type="checkbox" name="agente" value="RAFFAELE BURGIO">
+            <span class="agent-name">Raffaele Burgio</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Note aggiuntive</label>
+        <textarea id="note" placeholder="Eventuali informazioni supplementari, preferenze di consegna, ecc."></textarea>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <div id="statusBox" class="status-box"></div>
+      <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+        <span class="btn-text">Invia Richiesta</span>
+        <span class="spinner"></span>
+      </button>
+    </div>
+
+    <p class="form-footer">
+      I dati inseriti verranno salvati su <strong>Google Drive</strong> – PROPAGANDA 2027 › Raccolta Richieste Docenti 2026<br>
+      Martorana Libri SRL &nbsp;·&nbsp; MB Multimediabook's SRL &nbsp;·&nbsp; Zona Paesi Etnei · Catania
+    </p>
+  </div>
+</div>
+
+<script>
+const FOLDER_ID = "1ehwb7Kyiz4Cew-yMqI1tTMmv3PTCqiIk";
+
+// ── CONFIGURA QUI l'URL della Web App Apps Script (vedi istruzioni sotto) ──
+// Dopo aver incollato lo script nel foglio Drive e pubblicato la Web App,
+// sostituisci il valore sotto con l'URL che ottieni.
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWasMKntLcpame0kycXPElVlfsVhFoUbWS503D0JZrKZwK7A6yyfz17siZwt9kmj3F/exec";
+
+// Mostra subito la data nel campo visibile
+function formatDate(d) {
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yyyy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const min = String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm}/${yyyy}  ore ${hh}:${min}`;
+}
+
+function formatDateExcel(d) {
+  // Formato ISO leggibile da Excel come data: GG/MM/AAAA HH:MM
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yyyy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const min = String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const now = new Date();
+  document.getElementById("data_compilazione").value = formatDate(now);
+});
+
+function getVal(id) {
+  const el = document.getElementById(id);
+  if (!el) return "";
+  if (el.type === "checkbox") return el.checked ? "SI" : "NO";
+  return el.value.trim();
+}
+
+function getAgenti() {
+  return Array.from(document.querySelectorAll('input[name="agente"]:checked'))
+    .map(cb => cb.value);
+}
+
+function validate() {
+  const required = ["cognome","nome","email","scuola","comune","materia","titolo"];
+  for (const id of required) {
+    const v = getVal(id);
+    if (!v) {
+      document.getElementById(id).focus();
+      return `Il campo "${document.querySelector('[id="'+id+'"]').previousElementSibling?.textContent?.replace(' *','') || id}" è obbligatorio.`;
+    }
+  }
+  if (!getVal("uso_personale") && !getVal("uso_didattico")) {
+    return "Seleziona almeno un tipo di richiesta (uso personale o didattico).";
+  }
+  const agenti = getAgenti();
+  if (agenti.length === 0) {
+    return "Seleziona almeno un consulente di riferimento.";
+  }
+  const email = getVal("email");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Inserisci un indirizzo email valido.";
+  return null;
+}
+
+function showStatus(msg, type) {
+  const box = document.getElementById("statusBox");
+  box.className = "status-box " + type;
+  box.innerHTML = msg;
+  box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+async function submitForm() {
+  const err = validate();
+  if (err) { showStatus("⚠️ " + err, "error"); return; }
+
+  const btn = document.getElementById("btnSubmit");
+  btn.classList.add("loading");
+  btn.disabled = true;
+  showStatus("", "");
+
+  const now = new Date();
+  const dateStr = formatDateExcel(now);
+
+  const materia = getVal("materia") === "Altra materia" ? (getVal("materia_altra") || "Altra materia") : getVal("materia");
+  const editore = getVal("editore") === "Altro editore" ? (getVal("editore_altro") || "Altro editore") : getVal("editore");
+  const agenti = getAgenti();
+
+  const row = {
+    data: dateStr,
+    cognome: getVal("cognome"),
+    nome: getVal("nome"),
+    email: getVal("email"),
+    telefono: getVal("telefono"),
+    scuola: getVal("scuola"),
+    comune: getVal("comune"),
+    materia: materia,
+    classe: getVal("classe"),
+    titolo: getVal("titolo"),
+    autore: getVal("autore"),
+    editore: editore,
+    isbn: getVal("isbn"),
+    uso_personale: getVal("uso_personale"),
+    uso_didattico: getVal("uso_didattico"),
+    agenti: agenti.join(" | "),
+    note: getVal("note"),
+    stato: "In lavorazione"
+  };
+
+  // Leggi APPS_SCRIPT_URL dalla variabile configurabile in cima
+  const scriptUrl = APPS_SCRIPT_URL;
+
+  try {
+    btn.classList.add("loading");
+    showStatus("⏳ Invio in corso — salvataggio foglio, generazione PDF e invio email...", "info");
+
+    // ── Chiama Apps Script con tutti i parametri ─────────────────────────
+    const params = new URLSearchParams({
+      data:          row.data,
+      cognome:       row.cognome,
+      nome:          row.nome,
+      email:         row.email,
+      telefono:      row.telefono,
+      scuola:        row.scuola,
+      comune:        row.comune,
+      materia:       row.materia,
+      classe:        row.classe,
+      titolo:        row.titolo,
+      autore:        row.autore,
+      editore:       row.editore,
+      isbn:          row.isbn,
+      uso_personale: row.uso_personale,
+      uso_didattico: row.uso_didattico,
+      agenti:        row.agenti,
+      note:          row.note,
+      stato:         row.stato
+    });
+
+    // Usiamo no-cors perché Apps Script non invia header CORS sul redirect;
+    // la richiesta arriva e viene eseguita correttamente lato server.
+    await fetch(APPS_SCRIPT_URL + "?" + params.toString(), {
+      method: "GET",
+      mode:   "no-cors"
+    });
+
+    // Scarica riepilogo HTML localmente come copia di sicurezza
+    downloadRiepilogo(row);
+
+    showStatus(
+      `✅ <strong>Richiesta inviata con successo!</strong><br>
+       Gentile <strong>${row.nome} ${row.cognome}</strong>, la richiesta per «<em>${row.titolo}</em>» è stata:<br>
+       <span style="font-size:13px">
+         📊 Registrata nel foglio Google Sheet<br>
+         📄 PDF generato e salvato su Drive<br>
+         📧 Email inviata a propagandaeditoriale@gmail.com
+       </span>`,
+      "success"
+    );
+    resetForm();
+
+  } catch (e) {
+    // Fallback: almeno scarica il riepilogo localmente
+    downloadRiepilogo(row);
+    showStatus(
+      `⚠️ <strong>Attenzione:</strong> problema di connessione con il server. Il riepilogo è stato scaricato sul dispositivo. Riprovare o contattare l'assistente tecnico.`,
+      "error"
+    );
+    resetForm();
+  } finally {
+    btn.classList.remove("loading");
+    btn.disabled = false;
+  }
+}
+
+// ── Scarica una riga CSV (da importare nel foglio Drive) ────────────────────
+function downloadCSVRiga(row) {
+  const headers = "Data Invio,Cognome,Nome,Email,Telefono,Scuola,Comune,Materia,Classe/Sezione,Titolo Libro Richiesto,Autore,Editore,ISBN,Uso Personale,Uso Didattico,Consulente/i,Note,Stato Richiesta";
+  const vals = [
+    row.data, row.cognome, row.nome, row.email, row.telefono,
+    row.scuola, row.comune, row.materia, row.classe,
+    row.titolo, row.autore, row.editore, row.isbn,
+    row.uso_personale, row.uso_didattico, row.agenti, row.note, row.stato
+  ].map(v => `"${(v||"").replace(/"/g,'""')}"`).join(",");
+
+  const csv = headers + "\n" + vals;
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  const slug = (row.cognome + "_" + row.nome).replace(/\s+/g,"_");
+  a.download = `Riga_${slug}_${Date.now()}.csv`;
+  a.click();
+}
+
+// ── Scarica riepilogo HTML ──────────────────────────────────────────────────
+function downloadRiepilogo(row) {
+  const html = buildRiepilogoHTML(row);
+  const slug = (row.cognome + "_" + row.nome).replace(/\s+/g,"_").toUpperCase();
+  const ts   = new Date().toISOString().slice(0,16).replace(/[:T]/g,"-");
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `Riepilogo_${slug}_${ts}.html`;
+  a.click();
+}
+
+// ── Genera HTML riepilogo ricevuta ──────────────────────────────────────────
+function buildRiepilogoHTML(row) {
+  const uso = [
+    row.uso_personale === "SI" ? "Uso personale" : null,
+    row.uso_didattico === "SI" ? "Uso didattico" : null
+  ].filter(Boolean).join(", ") || "—";
+
+  const field = (label, val) => val
+    ? `<tr><td class="lbl">${label}</td><td class="val">${val}</td></tr>`
+    : "";
+
+  return `<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Riepilogo Richiesta – ${row.cognome} ${row.nome}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',sans-serif;background:#f0f4f8;padding:40px 20px;color:#2c2c2c}
+  .page{max-width:680px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 32px rgba(26,58,92,.13)}
+  .top{background:#1A3A5C;padding:32px 40px 24px;position:relative}
+  .top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C9973A,#E8C06A,#C9973A)}
+  .brand{color:rgba(255,255,255,.55);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .top h1{font-family:'Playfair Display',serif;color:#fff;font-size:22px;font-weight:700;line-height:1.25}
+  .badge{display:inline-block;margin-top:14px;background:rgba(201,151,58,.18);border:1px solid #C9973A;color:#E8C06A;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px}
+  .body{padding:32px 40px 36px}
+  .section{margin-bottom:24px}
+  .section-head{font-family:'Playfair Display',serif;font-size:12px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:#1A3A5C;border-bottom:1.5px solid #D4C5A9;padding-bottom:7px;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;background:#C9973A;border-radius:50%;flex-shrink:0}
+  table{width:100%;border-collapse:collapse}
+  td{padding:7px 0;vertical-align:top;font-size:14px;line-height:1.5}
+  td.lbl{color:#777;font-weight:600;font-size:12.5px;letter-spacing:.3px;text-transform:uppercase;width:38%;padding-right:12px}
+  td.val{color:#2c2c2c;font-weight:400}
+  .highlight td.val{color:#1A3A5C;font-weight:600;font-size:15px}
+  .agents{background:#EDF3F9;border-radius:8px;padding:10px 14px;font-size:13.5px;color:#1A3A5C;font-weight:600;line-height:1.7}
+  .footer{margin-top:28px;padding-top:16px;border-top:1px solid #eee;text-align:center;font-size:11.5px;color:#aaa;font-style:italic;line-height:1.8}
+  .stamp{display:inline-block;border:2px solid #C9973A;color:#C9973A;border-radius:6px;padding:3px 14px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+  @media print{body{background:#fff;padding:0}.page{box-shadow:none;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="brand">Martorana Libri SRL &nbsp;·&nbsp; MB Multimediabook's SRL</div>
+    <h1>Riepilogo Richiesta Libro in Saggio</h1>
+    <span class="badge">In lavorazione</span>
+  </div>
+  <div class="body">
+
+    <div class="section">
+      <div class="section-head"><span class="dot"></span> Dati Compilazione</div>
+      <table>
+        ${field("Data e ora", row.data)}
+        ${field("Stato", "In lavorazione")}
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="dot"></span> Dati Docente</div>
+      <table>
+        ${field("Cognome e Nome", row.cognome + " " + row.nome)}
+        ${field("Email", row.email)}
+        ${field("Telefono", row.telefono)}
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="dot"></span> Istituto Scolastico</div>
+      <table>
+        ${field("Scuola", row.scuola)}
+        ${field("Comune", row.comune)}
+        ${field("Materia", row.materia)}
+        ${field("Classe / Sezione", row.classe)}
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="dot"></span> Libro Richiesto</div>
+      <table>
+        <tr class="highlight">${field("Titolo", row.titolo)}</tr>
+        ${field("Autore/i", row.autore)}
+        ${field("Editore", row.editore)}
+        ${field("ISBN", row.isbn)}
+        ${field("Tipo richiesta", uso)}
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><span class="dot"></span> Consulente/i di Riferimento</div>
+      <div class="agents">${(row.agenti || "—").replace(/\s*\|\s*/g, "<br>")}</div>
+    </div>
+
+    ${row.note ? `<div class="section">
+      <div class="section-head"><span class="dot"></span> Note</div>
+      <p style="font-size:14px;line-height:1.6;color:#555">${row.note}</p>
+    </div>` : ""}
+
+    <div class="footer">
+      <div class="stamp">Ricevuta di Richiesta</div><br>
+      Martorana Libri SRL &nbsp;·&nbsp; MB Multimediabook's SRL &nbsp;·&nbsp; Zona Paesi Etnei – Catania<br>
+      Documento generato automaticamente il ${row.data}
+    </div>
+  </div>
+</div>
+</body>
+</html>`;
+}
+
+function resetForm() {
+  ["cognome","nome","email","telefono","scuola","comune","materia_altra",
+   "classe","titolo","autore","editore_altro","isbn","note"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("materia").value = "";
+  document.getElementById("editore").value = "";
+  document.getElementById("uso_personale").checked = false;
+  document.getElementById("uso_didattico").checked = false;
+  document.querySelectorAll('input[name="agente"]').forEach(cb => cb.checked = false);
+}
+</script>
+</body>
+</html>
